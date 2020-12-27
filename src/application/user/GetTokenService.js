@@ -1,17 +1,15 @@
 'use strict'
-var jwt = require("jsonwebtoken");
-let User = require('../../database').model
-const httpStatus = require('http-status')
-const { ApiError } = require('../../commons/ApiError')
+const jwt = require('jsonwebtoken')
+const User = require('../../database').model
 module.exports = function GetTokent() {
-    return async (email) => {
-        let selector = { "email": email }
+    return async(email) => {
+        const selector = {email}
         let user = await User.findOne(selector)
-        const token = jwt.sign(email, process.env.KEY);
+        const token = jwt.sign(email, process.env.KEY)
         if (!user) {
-            user = new User({ email: email, token: token });
+            user = new User({email, token})
             await user.save()
         }
-        return token;
+        return token
     }
 }

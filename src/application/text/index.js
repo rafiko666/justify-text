@@ -2,7 +2,6 @@
 const justifyTextServiceS = require('./JustifyTextService')
 const justifyTextService = justifyTextServiceS()
 
-
 const TextService = Object.freeze({
     justifyTextService
 })
