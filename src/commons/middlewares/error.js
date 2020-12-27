@@ -1,12 +1,23 @@
 'use strict'
-const httpStatus = require('http-status')
-const {ApiError} = require('../ApiError')
+const httpStatus = require('http-status');
+const expressValidation = require('express-validation');
+const { ApiError } = require('../ApiError')
 
 const handler = (err, req, res, next) => {
-    if (!(err instanceof ApiError)) {
+    if (!(err instanceof ApiError) &&
+        !(err instanceof expressValidation.ValidationError)) {
         next(err)
         //Go crash
     }
+    if (err instanceof expressValidation.ValidationError) {
+        const { details: message } = err;
+        err = new ApiError({
+          message,
+          stack: err.stack,
+          errors: err.errors,
+          status: httpStatus.BAD_REQUEST
+        });
+      }
     const response = {
         code: err.status,
         errors: err.errors,

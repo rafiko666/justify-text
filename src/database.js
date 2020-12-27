@@ -1,6 +1,6 @@
 'use strict'
 const mongoose = require('mongoose')
-const mongoURI = process.env.DB_URI
+const mongoURI = "mongodb+srv://rafik_tk:VdlFDYNzcBz4T8KE@mongo-test-vixki.mongodb.net/test?retryWrites=true"; 
 const httpStatus = require('http-status')
 const {ApiError} = require('./commons/ApiError')
 mongoose.connection.on('connected', () => {
@@ -11,10 +11,7 @@ mongoose.connection.on('connected', () => {
 mongoose.connection.on('error', (err) => {
     // eslint-disable-next-line no-console
     console.error(`MongoDB connection error: ${err}`)
-    throw new ApiError({
-        message: ' MongoDB connection error',
-        status: httpStatus.INTERNAL_SERVER_ERROR
-    })
+    process.exit(-1);
 })
 
 exports.connect = async() => {

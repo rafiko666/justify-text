@@ -47,9 +47,6 @@ describe('Users Tests', () => {
                     expect(res.body).to.be.an('object');
                     expect(res.body).to.contain.keys('code', 'message');
                     expect(res.body.code).to.equals(httpStatus.BAD_REQUEST);
-                    expect(res.body.message).to.deep.equals(
-                        ' Wrong Email Format'
-                    );
                     done();
                 });
         });

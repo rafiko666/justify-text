@@ -10,6 +10,12 @@ module.exports = function JustifyTextCommand({justifyTextC}) {
                     status: httpStatus.UNAUTHORIZED
                 })
             }
+            if (req.header('content-type') != 'text/plain' ){
+                throw new ApiError({
+                    message: ' Text missing',
+                    status: httpStatus.BAD_REQUEST
+                })
+            }
             const token = req.header('authorization')
             const text = await justifyTextC(req.body, token)
             res.setHeader('content-type', 'text/plain')

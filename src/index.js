@@ -26,5 +26,6 @@ app.use((err, _req, res, _next) => {
         code: httpStatus.INTERNAL_SERVER_ERROR,
         message: 'Internal server error'
     })
+    process.exit(1);
 })
 module.exports = app
