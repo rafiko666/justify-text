@@ -1,6 +1,6 @@
 'use strict'
 const mongoose = require('mongoose')
-const mongoURI = "mongodb+srv://rafik_tk:VdlFDYNzcBz4T8KE@mongo-test-vixki.mongodb.net/test?retryWrites=true"; 
+const mongoURI = process.env.DB_URI; 
 const httpStatus = require('http-status')
 const {ApiError} = require('./commons/ApiError')
 mongoose.connection.on('connected', () => {
