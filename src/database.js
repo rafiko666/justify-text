@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoURI = process.env.DB_URI;
 
 mongoose.connection.on('connected', () => {
     console.info('Successfully conncted to database');
@@ -11,14 +12,26 @@ mongoose.connection.on('error', (err) => {
 }); 
 
 exports.connect = async () => {
-    await mongoose.connect(DB.mongoURI, {
-      keepAlive: 1,
-      useCreateIndex: true,
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false,
-      autoIndex: false
-    });
+    await mongoose.connect(mongoURI, {
+        dbName : 'tictac',
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+        /* other options */
+      });
   
     return mongoose.connection;
   };
+
+  exports.model = mongoose.model('text', {
+    email : {type : String, default: ''},
+    limit: {
+	type: Number,
+	'default': 0,
+	min: 0,
+	max: 80000
+    },
+    Date : {
+        type : Date,
+        default: Date.now()
+    }
+},'text');
