@@ -9,8 +9,12 @@ const app = express()
 
 app.use(bodyParser.text())
 app.use(bodyParser.json())
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept,Authorization");
+  next();
+})
 app.use(helmet())
-app.use(express.static('public'))
 app.use('/api', routes)
 
 app.use(error.handler)
