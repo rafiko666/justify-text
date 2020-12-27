@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "app": "node ./src/server.js",
-    "start": "nodemon ./src/server.js",
+    "app": "nodemon ./src/server.js",
+    "start": "node ./src/server.js",
     "test": "jest",
     "test:ci": "npm run test",
     "pretest:ci": "npm run lint",
